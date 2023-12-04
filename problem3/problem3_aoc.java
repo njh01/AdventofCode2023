@@ -7,7 +7,8 @@ public class problem3_aoc
     public static void main(String[] args) throws Exception
     {
         String filename = "E:/Advent_of_Code/problem3/problem3_input.txt";
-        problem3tp1(filename);   
+        problem3tp1(filename);
+        problem3pt2(filename);   
     }
 
 
@@ -31,34 +32,14 @@ public class problem3_aoc
         int total = 0;
         for (int k = 0; k < mlength; k++)
         {
-            
             for (int g = 0; g < mlength; g++)
             {   
-                String candidate = "";
-                // Step 1: Get the integer out
-                int init = 0;
-                if (isInteger(str_matrix[k][g]))
-                {   
-                    init = g;
-                    int idx = g;
-                    candidate += str_matrix[k][g];
-                    for (int y = g+1; y < mlength; y++)
-                    {
-                        if (isInteger(str_matrix[k][y]))
-                        {
-                            candidate += str_matrix[k][y];
-                        } else {
-                            break;
-                        }
-                        idx = y;
-                    }
-                    g=idx;
-                }
-                // Step 2: check for special characters
-                if (!candidate.isEmpty())
-                { 
-                    // Check row limits
-                    boolean valid = false;
+                String[] values_str = new String[2];
+                if (str_matrix[k][g].contains("*"))
+                {
+                    int valid_count = 0;
+                    int[] q_store = new int[2];
+                    int[] x_store = new int[2];
                     int Lrow_check = 0;
                     int Hrow_check = 0;
                     if (k != 0) 
@@ -76,11 +57,11 @@ public class problem3_aoc
                     // Check column limits
                     int Lcol_check = 0;
                     int Hcol_check = 0;
-                    if (init != 0) 
+                    if (g != 0) 
                     {
-                        Lcol_check = init-1;
+                        Lcol_check = g-1;
                     } else {
-                        Lcol_check = init;
+                        Lcol_check = g;
                     }
                     if (g != mlength-1)
                     {
@@ -93,15 +74,84 @@ public class problem3_aoc
                         for (int x = Lcol_check; x <= Hcol_check; x++)
                         {
                             String check = str_matrix[q][x];
-                            if (check.contains("*"))
+                            if (isInteger(check) && valid_count < 2)
                             {
-                                valid = true;
+                                valid_count++;
+                                q_store[valid_count-1] = q;
+                                x_store[valid_count-1] = x;
                             }
                         }
                     }
+                    if (valid_count > 1)
+                    {
+                        // method to find integer new a coordinate
+                        String num1 = "";
+                        String num2 = "";
+                        // handle #1
+                        // first go back till a "."
+                        // collect ints till back at a "."
+                        int new_save_col = 0;
+                        for (int b = x_store[0]; b > 0; b--)
+                        {
+                            if (str_matrix[q_store[0]][b].contains("."))
+                            {
+                                new_save_col = b+1;
+                                break;
+                            }
+                        }
+                        for (int n = new_save_col; n < mlength; n++)
+                        {   
+                            if(str_matrix[q_store[0]][n].contains(".") || !isInteger(str_matrix[q_store[0]][n]))
+                            {
+                                break;
+                            }
+                            if (isInteger(str_matrix[q_store[0]][n]))
+                            {
+                                num1 += str_matrix[q_store[0]][n];
+                            }
+                        }
+
+                        int save_col_num2 = 0;
+                        for (int f = x_store[1]; f > 0; f--)
+                        {
+                            if (str_matrix[q_store[1]][f].contains("."))
+                            {
+                                save_col_num2 = f+1;
+                                break;
+                            }
+                        }
+                        for (int w = save_col_num2; w < mlength; w++)
+                        {   
+                            if(str_matrix[q_store[1]][w].contains(".") || !isInteger(str_matrix[q_store[1]][w]))
+                            {
+                                break;
+                            }
+                            if (isInteger(str_matrix[q_store[1]][w]))
+                            {
+                                num2 += str_matrix[q_store[1]][w];
+                            }
+                        }
+                        values_str[0] = num1;
+                        values_str[1] = num2;
+                    }
+
                 }
+                System.out.println("column: " + g + "\trow : " + k);
+                int val1 = 0;
+                int val2 = 0;
+                if (values_str[0] != null)
+                {
+                    val1 = Integer.parseInt(values_str[0]);
+                    val2 = Integer.parseInt(values_str[1]);
+                }
+                    
+                total += val1*val2;
+            
             }
+            
         }
+        
+        System.out.println(total);
     }
 
 
@@ -231,3 +281,23 @@ public class problem3_aoc
         return true;
     }
 }
+
+
+
+//  if (q_store[0] == q_store[1]) 
+//                         {
+//                             for (int b = x_store[0]; b > 0;  b--)
+//                             {
+//                                 if (isInteger(str_matrix[q_store[0]][b]))
+//                                 {
+//                                     num1 += str_matrix[q_store[0]][b];
+//                                 }
+//                             }
+//                             for (int p = x_store[0]; p > 0;  p++)
+//                             {
+//                                 if (isInteger(str_matrix[q_store[1]][p]))
+//                                 {
+//                                     num1 += str_matrix[q_store[1]][p];
+//                                 }
+//                             }
+//                         }
