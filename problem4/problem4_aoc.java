@@ -14,7 +14,6 @@ public class problem4_aoc
         {
             String line = sc.nextLine();
             String[] split_list = line.split(":");
-
             String[] split_winners = split_list[1].split("\\|");
             String[] winner_int_list = split_winners[0].split("\\s+");
             String[] my_int_list = split_winners[1].split("\\s+");
@@ -28,7 +27,6 @@ public class problem4_aoc
                     int winning_number = Integer.parseInt(winner_int_list[j]);
                     if (my_number == winning_number)
                     {
-                        System.out.println("Mine: " + winning_number + "\tWinning : " + winning_number);
                         match_count ++;
                         if (match_count == 1)
                         {
@@ -37,10 +35,8 @@ public class problem4_aoc
                         if (match_count > 1)
                         {
                             card_score *= 2;
-                            System.out.println("Score: " + card_score);
                         }
                     }
-                   
                 }
             }
             total += card_score;

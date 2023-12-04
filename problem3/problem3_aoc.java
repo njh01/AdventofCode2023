@@ -79,6 +79,17 @@ public class problem3_aoc
                                 valid_count++;
                                 q_store[valid_count-1] = q;
                                 x_store[valid_count-1] = x;
+                                // check overlap detection case
+                                if (q_store[0] == q_store[1] && x_store[1]-x_store[0] == 1)
+                                {
+                                    int loop_var = x_store[1];
+                                    while (!str_matrix[q_store[0]][loop_var].contains("."))
+                                    {
+                                        loop_var++;
+                                    }
+                                    x = loop_var;
+                                    valid_count--;
+                                }
                             }
                         }
                     }
@@ -93,9 +104,9 @@ public class problem3_aoc
                         int new_save_col = 0;
                         for (int b = x_store[0]; b > 0; b--)
                         {
-                            if (str_matrix[q_store[0]][b].contains("."))
+                            new_save_col = b+1;
+                            if (str_matrix[q_store[0]][b].contains(".") || !isInteger(str_matrix[q_store[0]][b]))
                             {
-                                new_save_col = b+1;
                                 break;
                             }
                         }
@@ -114,9 +125,9 @@ public class problem3_aoc
                         int save_col_num2 = 0;
                         for (int f = x_store[1]; f > 0; f--)
                         {
-                            if (str_matrix[q_store[1]][f].contains("."))
+                            save_col_num2 = f+1;
+                            if (str_matrix[q_store[1]][f].contains(".") || !isInteger(str_matrix[q_store[1]][f]))
                             {
-                                save_col_num2 = f+1;
                                 break;
                             }
                         }
@@ -131,26 +142,23 @@ public class problem3_aoc
                                 num2 += str_matrix[q_store[1]][w];
                             }
                         }
-                        values_str[0] = num1;
+                            values_str[0] = num1;
                         values_str[1] = num2;
                     }
 
                 }
-                System.out.println("column: " + g + "\trow : " + k);
+                // System.out.println("column: " + g + "\trow : " + k);
+                // System.out.println("v1: " + values_str[0] + "v2: " + values_str[1]);
                 int val1 = 0;
                 int val2 = 0;
-                if (values_str[0] != null)
+                if (values_str[0] != null && values_str[1] != null)
                 {
                     val1 = Integer.parseInt(values_str[0]);
                     val2 = Integer.parseInt(values_str[1]);
                 }
-                    
                 total += val1*val2;
-            
             }
-            
         }
-        
         System.out.println(total);
     }
 
