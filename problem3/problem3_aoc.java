@@ -1,7 +1,6 @@
 import java.io.File;
 import java.util.*;
 import java.lang.*;
-
 public class problem3_aoc
 {
     public static void main(String[] args) throws Exception
