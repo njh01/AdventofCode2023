@@ -28,7 +28,7 @@ public class problem5_aoc
         String[] str2 = str.split("\n");
         boolean[] submap = new boolean[seed_num_Float.length];
 
-        for (int k = 34; k < str2.length; k++)
+        for (int k = 3; k < str2.length; k++)
         {
             String line = str2[k];
             if (line.contains("map") || line.contains("\\s+") || line == null)
@@ -47,7 +47,7 @@ public class problem5_aoc
             {
                 Float seed_no = seed_num_Float[j];
                 Float map_destination;
-                if ((seed_no >= source_start) && (seed_no <= (source_start + range_len)) && submap[j] == false)
+                if ((seed_no >= source_start) & (seed_no <= (source_start + range_len)) & submap[j] == false)
                 {   
                     Float idx = (seed_no-source_start);
                     map_destination = dest_start + idx;
