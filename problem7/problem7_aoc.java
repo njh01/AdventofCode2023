@@ -38,6 +38,69 @@ public class problem7_aoc
             hands[i] = line[0];
             bids[i] = Integer.parseInt(line[1]);
         }
-        
+
+        List<List<Integer>> hand_info = new ArrayList<>();
+        for (int j = 0; j < hands.length; j++)
+        {
+            String[] line = hands[j].split("(?!^)");
+            /*
+             * 1 - high card
+             * 2 - pair
+             * 3 - 2 pair
+             * 4 - 3 of kind
+             * 5 - Full house
+             * 6 - 4 of a kind
+             * 7 - 5 of a kind
+             */
+            List<Integer> cards = new ArrayList<>();
+            Integer[] freq = new Integer[line.length];
+            cards.add(card_dict.get(line[0]));
+            cards.add(card_dict.get(line[1]));
+            cards.add(card_dict.get(line[2]));
+            cards.add(card_dict.get(line[3]));
+            cards.add(card_dict.get(line[4]));
+
+            // Find hand type
+            int sum = 0;
+            for (int k = 0; k < line.length; k++)
+            {
+                sum += Collections.frequency(cards,cards.get(k));
+            }
+            if (sum == 5) // each card has freq of 1 [1,1,1,1,1]
+            {
+                cards.add(1);
+            }
+            if (sum == 7) // two cards have freq of 2 [2,2,1,1,1]
+            {
+                cards.add(2);
+            }
+            if (sum == 9) // four cards have freq of 2 [2,2,2,2,1,]...
+            {
+                cards.add(3);
+            }
+            if (sum == 11)
+            {
+                cards.add(4);
+            }
+            if (sum == 13)
+            {
+                cards.add(5);
+            }
+            if (sum == 17)
+            {
+                cards.add(6);
+            }
+            if (sum == 25) // freq = [5,5,5,5,5]
+            {
+                cards.add(7);
+            }
+            // add bid
+            cards.add(bids[j]);
+            hand_info.add(cards);
+        }
+        System.out.println(hand_info.get(0).get(6)); // print bid to confirm correct construction of list
+        // check each card against others
+        // get rank as `int rank ++ if > card[i]`
+        // multiply rank by bid, add to `int total`
     }
 }
