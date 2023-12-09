@@ -30,7 +30,7 @@ public class problem9_aoc
                 Integer[] hist = new Integer[line_nums.length-1-line_count];
                 for (int i = 0; i < line_nums.length-(2+line_count); i++)
                 {
-                    hist[i] = loop_var[i+1] - loop_var[i];
+                    hist[i] = Math.abs(loop_var[i+1] - loop_var[i]);
                     hist[i+1] = 0;
                 }
                 hist[hist.length-1] = 0;
@@ -54,7 +54,6 @@ public class problem9_aoc
 
     public static boolean onlyZeros(Integer[] int_in)
     {
-        int nonzero_count = 0;
         for (int i = 0; i < int_in.length; i++)
         {
             if (int_in[i] == null)
@@ -63,14 +62,9 @@ public class problem9_aoc
             }
             if (int_in[i] > 0)
             {
-                nonzero_count++;
+                return false;
             }
         }
-        if (nonzero_count > 1)
-        {
-            return false;
-        } else {
-            return true;
-        }
+        return true;
     }
 }
