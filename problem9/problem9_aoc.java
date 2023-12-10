@@ -43,15 +43,15 @@ public class problem9_aoc
                 int index = line_history.get(j).length-1;
                 int num2add = line_history.get(j)[index];
                 int numadded = line_history.get(j-1)[index];
-                int sum = num2add + numadded;
                 if (j == 1)
                 {        
                     int check_numadded = line_history.get(j-1)[index-1];
                     if ((numadded < 0) && (check_numadded > numadded))
                     {
-                        sum *= -1;
+                        num2add *= -1;
                     }
                 }
+                int sum = num2add + numadded;
                 line_history.get(j-1)[index+1] = sum;
                 extrap = sum;
             }

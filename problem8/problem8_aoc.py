@@ -71,7 +71,7 @@ def lcm(a, b):
 
 
 def main():
-    with open("problem8.txt","r") as f:
+    with open("./problem8.txt","r") as f:
         data = f.read()
     lines = data.split("\n")
     part1(lines)
