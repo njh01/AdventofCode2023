@@ -111,7 +111,7 @@ public class problem7_aoc
         indices.add(4);
         for (int y = 0; y < hand_info.size(); y++)
         {
-            int rank = 0;
+            int rank = 1;
             int htype = hand_info.get(y).get(5);
             int bid = hand_info.get(y).get(6);
             for (int k = 0; k < hand_info.size(); k++)
