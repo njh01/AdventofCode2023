@@ -98,9 +98,55 @@ public class problem7_aoc
             cards.add(bids[j]);
             hand_info.add(cards);
         }
-        System.out.println(hand_info.get(0).get(6)); // print bid to confirm correct construction of list
+        // System.out.println(hand_info.get(0).get(6)); // print bid to confirm correct construction of list
         // check each card against others
         // get rank as `int rank ++ if > card[i]`
         // multiply rank by bid, add to `int total`
+        int total = 0;
+        List<Integer> indices = new ArrayList<>();
+        indices.add(0);
+        indices.add(1);
+        indices.add(2);
+        indices.add(3);
+        indices.add(4);
+        for (int y = 0; y < hand_info.size(); y++)
+        {
+            int rank = 0;
+            int htype = hand_info.get(y).get(5);
+            int bid = hand_info.get(y).get(6);
+            for (int k = 0; k < hand_info.size(); k++)
+            {
+                int htype_compare = hand_info.get(k).get(5);
+
+                if (k != y)
+                {
+                    if (htype > htype_compare)
+                    {
+                        rank++;
+                    }
+                    if (htype == htype_compare)
+                    {
+                        for (int p = 0; p < 5; p++)
+                        {   
+                            int hand = hand_info.get(y).get(p);
+                            int hand_compare = hand_info.get(k).get(p);
+                            if (hand_compare > hand)
+                            {
+                                break;
+                            }
+                            if (hand > hand_compare)
+                            {
+                                rank++;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            int winnings = rank * bid;
+            total += winnings;
+        }
+        System.out.println(total);
+
     }
 }
