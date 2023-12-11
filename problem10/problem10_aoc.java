@@ -43,7 +43,7 @@ public class problem10_aoc
         String current_pipe;
         swtich (current_pipe)
         {
-        	case "|":
+        	case "\|":
         		// Direction is from current node to connecting node
         		if (direction == "north")
         		{
@@ -54,7 +54,7 @@ public class problem10_aoc
         			current_coords[0] = current_coords[0] + south[0];
         		}
         		break;
-        	case "-":
+        	case "\-":
         		if (direction == "east")
         		{
         			current_coords[1] = current_coords[0] + east[1];
